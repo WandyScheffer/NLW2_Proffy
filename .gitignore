@@ -4,16 +4,26 @@
 /server/node_modules
 /web/node_modules
 
+/mobile/node_modules
+/mobile/.expo/*
+
 # production
 /web/build
+/mobile/web-build/
 
 # misc
 .DS_Store
 *.env*
 
-# Logs and databases #
+# Logs, databases and more some files#
 ######################
 *.log*
 *.sql
 *.sqlite
 
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
