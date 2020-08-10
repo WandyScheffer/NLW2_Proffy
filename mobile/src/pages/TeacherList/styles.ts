@@ -5,10 +5,49 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f0f0f7'
     },
-    teste:{
-        flex: 1,
+    teacherList:{
+        marginTop: -10,
+    },
+    searchForm:{
+        marginBottom:10,
+    },
+    label:{
+        color: '#d4c2ff',
+        fontFamily: 'Poppins_400Regular'
+        
+    },
+    inputGroup:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8
+    },
+    inputBlock:{
+        width: '48%'
+    },
+    input:{
+        height:54,
+        backgroundColor:'#fff',
+        borderRadius:8,
+        justifyContent:'center',
+        paddingHorizontal:16,
+        marginTop:8,
+        marginBottom:1
+    },
+    submitButton:{
+        backgroundColor: '#04d361',
+        marginTop:10,
+        height: 56,
+        borderRadius: 8,
+        flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        
+    },
+    submitButtonText:{
+        color: '#fff',
+        fontFamily: 'Archivo_700Bold',
+        fontSize: 16,
+        
     }
 });
 

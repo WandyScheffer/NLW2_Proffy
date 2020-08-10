@@ -5,10 +5,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f0f0f7'
     },
-    teste: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+    teacherList: {
+        marginTop: -10,
+
     }
 });
 
