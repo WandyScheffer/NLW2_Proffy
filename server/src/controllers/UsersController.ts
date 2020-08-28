@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 import db from '../database/connection';
 import bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
 
 export default class UsersController {
     
     async auth(req: Request, res: Response){
         const { email, pass } = req.body;
-        const dbInfos = await db('users').select('pass', 'id').where('email', '=', email);
+        const dbInfos = await db('users').select('*').where('email', '=', email);
+        
         
         try {
             const userAuth = await bcrypt.compare(pass, dbInfos[0].pass);
@@ -17,7 +19,8 @@ export default class UsersController {
             }
     
             if (userAuth) {
-                return res.status(200).json({ user_id: dbInfos[0].id, ...authInfo }).send();
+                const jwtoken = jwt.sign({id: dbInfos[0].id}, 'a_generic_secret');
+                return res.status(200).json({ ...authInfo, token: jwtoken}).send();
             }else{
                 return res.status(200).json({ ...authInfo }).send();
             }
