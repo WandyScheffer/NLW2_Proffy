@@ -1,0 +1,270 @@
+#page-login{
+    display: grid;
+    width: 100%;
+    height: 100vh;
+}
+
+.proffy-presentation{
+    background-color: var(--color-primary);
+    color: var(--color-text-in-primary);       
+    height: 10vh;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.presentation-group{
+
+    max-height: 50%;
+    max-width: 50%;
+}
+
+.proffy-presentation img{
+    /* margin: 0 auto; */
+    height: 100%;
+    width: 100%;
+    
+}
+
+
+.proffy-presentation h2{
+    visibility: hidden;
+}
+
+.main-login{
+    height: 90vh;
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*  */
+    /* background-color: aqua; */
+    /*  */
+}
+
+#page-login main fieldset{
+    border: 0;
+    max-width: 80%;
+    /*  */
+    /* background-color: blueviolet; */
+    /*  */
+}
+
+#page-login main fieldset legend{
+    font: 700 4rem Archivo;
+    color: var(--color-text-title);
+    margin-bottom: 2.4rem;
+    padding-bottom: 1.6rem;
+    /*  */
+    /* background-color: brown; */
+    /*  */
+}
+
+
+
+.input-block-login{    
+    margin-bottom: 10%;
+    /*  */
+    /* background-color: crimson; */
+    /*  */
+    /* flex-direction: column; */
+    /* width: 80% !important; */
+}
+
+.input-block-login input{
+
+    width: 100%;
+    height: 7rem;
+    margin-top: 0rem;
+    margin-right: auto;
+    
+    border-radius: 0.8rem 0.8rem 0.8rem 0.8rem;
+    background: var(--color-input-background);
+    /* background: red; */
+    border: 1px solid var(--color-line-in-white);
+    outline: 0;
+    padding: 0 1.6rem;
+    font: 1.6rem Archivo;
+}
+.input-block-login input:first-child{
+    border-radius: 0.8rem 0.8rem 0rem 0rem;
+}
+/* .input-block-login input:last-child{ */
+.input-block-login .pass-group input{
+    border-radius: 0rem 0rem 0rem 0.8rem !important;
+}
+
+/* 
+Descobrir como fazer isso :/
+ */
+
+.pass-group{
+    display: inline-flex;
+    /* background-color: darkblue; */
+    width: 100%;
+
+    
+}
+
+.pass-group div{
+    display: flex;
+    justify-content: center;
+    background: var(--color-input-background);
+    /* display: ; */
+    /* height: 100%; */
+    width: 15%;
+    align-items: center;
+    border-bottom-right-radius: 0.8rem;
+    /* width: %; */
+
+    border: 1px solid var(--color-line-in-white);
+    border-left: 0px !important;
+}
+
+.pass-group div img{
+    width: 50%;
+    cursor: pointer;
+}
+
+.pass-group input{
+    /* width: 100%; */
+    border-right: 0px;
+}
+
+.main-login button{
+    width: 100%;
+    height: 5.6rem;
+    background: var(--color-secundary);
+    color: var(--color-button-text);
+    border: 0;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    font: 700 1.6rem Archivo;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    margin-top: 3.2rem;
+}
+
+.main-login button:hover{
+    background-color: var(--color-secundary-dark);
+}
+.remember-block{
+    display: flex;
+    justify-content: space-between;
+    /* background-color: red; */
+}
+.remember-block div{
+    /* background-color: black; */
+    display: flex;
+    align-items: center;
+    
+}
+
+.remember-block div label:nth-child(2){
+    cursor: pointer;
+}
+
+
+.remember-block a{
+    text-decoration: none;
+    color: var(--color-text-base);
+}
+
+.remember-block .chk{
+    /* https://pt.stackoverflow.com/questions/320401/como-mudar-o-background-de-um-checkbox-apenas-com-css#:~:text=Atualmente%20com%20o%20CSS3%20voc%C3%AA,cross%2Dbrowser%20e%20outros%20n%C3%A3o. */
+    margin-right: 2rem;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.remember-block .chk input{
+    display: none;
+}
+.remember-block .chk span{
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #DDD;
+    border-radius: 20%;
+    
+}
+.remember-block .chk input:checked + span{
+    background-color: var(--color-secundary);
+}
+
+
+.incentivisation-block{
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-between;
+    max-width: 80%;
+    width: 43rem;
+    /* essa largura cheira a gambiarra ;-; */
+}
+
+.incentivisation-block span:last-child{
+    display: flex;
+    font: 500 1.3rem Poppins;
+    
+}
+.incentivisation-block span:last-child img{
+    margin-left: 0.3rem;
+    margin-top: 0.3rem;
+    height: fit-content;
+}
+
+.incentivisation-block span a{
+    color: var(--color-primary);
+}
+
+
+
+@media (min-width: 1100px){
+    #page-login{
+        
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "proffy main";
+    }
+    .proffy-presentation{
+        height: 100vh;
+        width: 50vw;
+        background-image: url('../../assets/images/login-background.svg');
+        background-repeat: no-repeat;
+        background-size: 75%;
+        background-position: center;
+        grid-area: proffy;
+        
+    }
+    .proffy-presentation h2{
+        font-weight: 500;
+        font-size: 2.4rem;
+        line-height: 4.6rem;
+        margin-top: 0.4rem;
+        text-align: left;
+        visibility: visible;
+    }
+
+    .proffy-presentation img{
+        height: 10rem;
+        max-width: 100%;
+        margin-left: 0;
+    }
+    .presentation-group{
+        max-width: 40%;
+    }
+    .main-login{
+        height: 100vh;
+        width: 50vw;
+    }
+    
+}
