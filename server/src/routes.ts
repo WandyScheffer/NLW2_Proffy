@@ -9,9 +9,11 @@ const classesController = new ClassesController();
 const connectionsController = new ConnectionsController();
 const usersController = new UsersController();
 
-routes.post('/users', usersController.create);
+// routes.post('/users', usersController.create);
+routes.post('/user', usersController.create);
 //I will finish yet
-routes.get('/users', usersController.auth);
+// routes.get('/users', usersController.auth);
+routes.post('/authuser', usersController.auth);
 
 //routes that need a authentication by a middleware
 routes.use(auth);

@@ -8,25 +8,40 @@ export default class UsersController {
     
     async auth(req: Request, res: Response){
         const { email, pass } = req.body;
+        console.log(req.body);
+        
         const dbInfos = await db('users').select('*').where('email', '=', email);
         
+
+        const authInfo = {
+            auth: false
+        }
         
         try {
             const userAuth = await bcrypt.compare(pass, dbInfos[0].pass);
     
-            const authInfo = {
-                auth: userAuth
-            }
+            authInfo.auth = userAuth;
+
+            const user = {
+                id: dbInfos[0].id,
+                name: dbInfos[0].name,
+                last_name: dbInfos[0].last_name,
+                email: dbInfos[0].email,
+                avatar: dbInfos[0].avatar,
+                whatsapp: dbInfos[0].whatsapp,
+                bio: dbInfos[0].bio
     
+            }
+            
             if (userAuth) {
                 const jwtoken = jwt.sign({id: dbInfos[0].id}, 'a_generic_secret');
-                return res.status(200).json({ ...authInfo, token: jwtoken}).send();
+                return res.status(200).json({ ...authInfo, token: jwtoken, user}).send();
             }else{
-                return res.status(200).json({ ...authInfo }).send();
+                return res.status(200).json({ ...authInfo, message: "invalid pass" }).send();
             }
             
         } catch (error) {
-            return res.status(200).json({ message: "unknown user" }).send();
+            return res.status(200).json({...authInfo, message: "unknown user" }).send();
             
         }
         
