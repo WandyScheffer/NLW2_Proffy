@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Landing from './pages/Landing';
 import TeacherList from './pages/TeacherList';
@@ -13,24 +13,27 @@ import PublicRoute from './routes/public.routes';
 
 function Routes() {
     const { auth } = useAuth();
+    // const [] = useState(false);
     console.log(auth);
     
     return(
         <BrowserRouter>
             <AuthProvider>
-                {/* <Route path="/login" component={Login} />
-                <PrivateRoute path="/"  component={Landing} />
-                <PrivateRoute path="/study" component={TeacherList} />
-                <PrivateRoute path="/give-classes" component={TeacherForm} /> */}
-                
-                {auth ? <PrivateRoute /> : <PublicRoute />}
+                <Switch>
+                    {/* <Route path="/login" component={Login} />
+                    <PrivateRoute path="/"  component={Landing} />
+                    <PrivateRoute path="/study" component={TeacherList} />
+                    <PrivateRoute path="/give-classes" component={TeacherForm} /> */}
+                    
+                    {auth ? <PrivateRoute /> : <PublicRoute />}
 
 
-                {/* <Route path="/login" exact component={Login} />
+                    {/* <Route path="/login" exact component={Login} />
 
-                <Route path="/" exact component={Landing} />
-                <Route path="/study" component={TeacherList} />
-                <Route path="/give-classes" component={TeacherForm} /> */}
+                    <Route path="/" exact component={Landing} />
+                    <Route path="/study" component={TeacherList} />
+                    <Route path="/give-classes" component={TeacherForm} /> */}
+                </Switch>
 
             </AuthProvider>
         </BrowserRouter>

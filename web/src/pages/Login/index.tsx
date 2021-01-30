@@ -52,8 +52,15 @@ function Login() {
         
         console.log(loginFormData);
         
-        await signIn(loginFormData);
-        history.push("/");
+        // await signIn(loginFormData);
+        const loged = await signIn(loginFormData);
+        if (loged) {
+            console.log("em teoria já está logado...");
+            
+            history.push("/");
+        } else {
+            history.push("/login");
+        }
 
     }
     
