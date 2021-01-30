@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 
 import logoImg from '../../assets/images/logo.svg';
 // import Input from '../../components/Input';
@@ -8,13 +8,53 @@ import closeEye from '../../assets/images/icons/closeeye.svg';
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 import chekedIcon from '../../assets/images/icons/checked.svg';
 import './styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../../contexts/auth-context';
+
+
+const formLoginInitialState: DataForLogin = {
+    email:'',
+    pass:'',
+    remember: false
+}
+
+interface DataForLogin{
+    email:string,
+    pass: string,
+    remember: boolean
+}
 
 function Login() {
     const [eyeState, setEyeState] = useState(false);
+    const [loginFormData, setLoginFormData] = useState<DataForLogin>(formLoginInitialState);
+    const { auth, signIn } = useAuth();
 
-    function chagePassType() {
-        setEyeState(!eyeState);
+    const history = useHistory();
+
+    function handleLoginFormData(event: ChangeEvent<HTMLInputElement>) {
+        // console.log(event.target);
+        
+        const fieldName = event.target.getAttribute('name') as string;
+        const fieldValue = fieldName==="remember" ? event.target.checked : event.target.value;
+        
+        // console.log(fieldName);
+        // console.log(fieldValue);
+        
+        setLoginFormData({
+            ...loginFormData,
+            [fieldName]:fieldValue
+        });
+        console.log(loginFormData);
+    }
+
+    async function handleLoginSubmin(event: FormEvent) {
+        event.preventDefault();
+        
+        console.log(loginFormData);
+        
+        await signIn(loginFormData);
+        history.push("/");
+
     }
     
     return(
@@ -32,23 +72,24 @@ function Login() {
             <main className="main-login">
                 <fieldset>
                     <legend> Fazer login </legend>
-                    <form action="">
+                    {/* chamar função q faz requisição a api e tenta autenticar o usuário */}
+                    <form action="" onSubmit={handleLoginSubmin} >
                         <div className="input-block-login">
-                            <input type="text" name="" placeholder="E-mail"/>
+                            <input type="email" name="email" id="email" placeholder="E-mail" onChange={handleLoginFormData} value={loginFormData.email} />
                             <div className="pass-group" > 
-                                <input type={eyeState ? "text" : "password"} name="" placeholder="Senha"/>  
-                                <div> <img src={eyeState ? closeEye : openEye} onClick={ chagePassType } alt="" /> </div>  
+                                <input type={eyeState ? "text" : "password"} name="pass" id="pass" placeholder="Senha" onChange={handleLoginFormData} value={loginFormData.pass} />  
+                                <div> <img src={eyeState ? closeEye : openEye} onClick={ () => setEyeState(!eyeState) } alt="" /> </div>  
                             </div>
                         </div>
 
                         <div className="remember-block">
                             <div>
                                 <label className="chk">
-                                    <input id="chk" type="checkbox" name="remember" />
+                                    <input id="remember" type="checkbox" name="remember" onChange={handleLoginFormData} checked={loginFormData.remember}/>
                                     <span> <img src={chekedIcon} alt="" /> </span>
                                 </label>
 
-                                <label htmlFor="chk">Lembrar-me</label>
+                                <label htmlFor="remember">Lembrar-me</label>
                             </div>
                             <Link to="/forgot" >Esqueci minha senha</Link>
                         </div>
