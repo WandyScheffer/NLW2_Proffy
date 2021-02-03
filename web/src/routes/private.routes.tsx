@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
+import React, { FunctionComponent, ReactNode } from 'react';
+import { Redirect, Route, RouteComponentProps, Switch, RouteProps} from 'react-router-dom';
+import { JsxElement } from 'typescript';
 import { useAuth } from '../contexts/auth-context';
 import Landing from '../pages/Landing';
 import TeacherForm from '../pages/TeacherForm';
@@ -16,11 +17,46 @@ import TeacherList from '../pages/TeacherList';
 //     render: RouteComponentProps;
 // }
 
-const PrivateRoute: React.FC = () => {
+interface PrivateRouteData extends RouteProps{
+    // path: string;
+    // component: FunctionComponent;
+    component: any;
+}
+
+const PrivateRoute: React.FC<PrivateRouteData> = (props) => {
     const { auth } = useAuth();
+    const { component: Component, ...rest } = props;
 
+    return (
+        <Route 
+            {...rest}
+            render={(routeProps) => {
+                console.log("teste");
+                
+                console.log(auth);
+                
+                return auth ? (
+                    <Component {...routeProps} />   
+                ) : (
+                    <Redirect 
+                        to={{
+                            pathname:"/login",
+                            state: {from: routeProps.location}
+                        }}
+                    />
+                )}
+            }
+        />
+    );
 
-    return {auth} ? (
+    // return (
+    //     <>
+    //         <Route path={path} exact component={component} />
+    //         {/* <Route path={path} exact render={ Landing } /> */}
+    //     </>
+    // );
+
+    // return auth ? (
         // <Route 
         //     {...rest}
         //     render={() => auth
@@ -28,15 +64,16 @@ const PrivateRoute: React.FC = () => {
         //         : <Redirect to="/login" />
         //     }
         // />
-        <>
+        // <>
         {/* <Switch> */}
-            <Route path="/" exact component={Landing} />
-            {/* <Route path="/" exact render={() => { return <h1>Hello world!</h1> }} /> */}
-            <Route path="/study" component={TeacherList} />
-            <Route path="/give-classes" component={TeacherForm} />
+            {/* <Route path={path} exact component={component} /> */}
+            {/* <Route path={path} exact component={component} /> */}
+            {/* <Route path={path} exact render={ () => component} /> */}
+            {/* <Route path="/study" component={TeacherList} /> */}
+            {/* <Route path="/give-classes" component={TeacherForm} /> */}
         {/* </Switch> */}
-        </>
-    ) :  <Redirect to="/login"/>
+        // </>
+    // ) :  <Redirect to="/login"/>
 }
 
 export default PrivateRoute;

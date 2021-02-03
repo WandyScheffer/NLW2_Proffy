@@ -8,7 +8,7 @@ import closeEye from '../../assets/images/icons/closeeye.svg';
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 import chekedIcon from '../../assets/images/icons/checked.svg';
 import './styles.css';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth-context';
 
 
@@ -52,15 +52,19 @@ function Login() {
         
         console.log(loginFormData);
         
-        // await signIn(loginFormData);
-        const loged = await signIn(loginFormData);
-        if (loged) {
-            console.log("em teoria já está logado...");
-            
+        await signIn(loginFormData);
+        // const loged = await signIn(loginFormData);
+        // if (loged) {
+        //     console.log("em teoria já está logado...");
+            // await new Promise(resolve => setTimeout(resolve, 2000));
             history.push("/");
-        } else {
-            history.push("/login");
-        }
+            // return (
+            //     <Redirect to="/" />
+            // );
+        // } 
+        // else {
+            // history.push("/login");
+        // }
 
     }
     

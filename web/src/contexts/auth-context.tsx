@@ -32,10 +32,12 @@ interface AuthContextData{
     user: User | null;
     loading: boolean;
     // ainda n sei exatamente a tipagem do retorno de signIn
-    // signIn(dataForLogin: DataForLogin): Promise<void>;
-    signIn(dataForLogin: DataForLogin): Promise<boolean>;
+    signIn(dataForLogin: DataForLogin): Promise<void>;
+    // signIn(dataForLogin: DataForLogin): Promise<boolean>;
     signOut(): void;
 }
+
+var testeAuth = false;
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -80,6 +82,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         
         // setAuth(response.auth);
         setAuth(response.data.auth);
+        testeAuth = response.data.auth;
         
         // api.defaults.headers.authorization = response.auth ? `${response.token}` : null;
         api.defaults.headers.authorization = response.data.auth ? `${response.data.token}` : null;
@@ -93,13 +96,16 @@ export const AuthProvider: React.FC = ({ children }) => {
     
             // localStorage.setItem("token", response.token);
             localStorage.setItem("token", response.data.token);
-            // history.push("/");
-            return true;
-        }else{
-            return false;
-            // history.push("/login");
+            // console.log(history);
             
+            // history.push('/');
+            // return true;
         }
+        // else{
+        //     return false;
+        //    // history.push("/login");
+            
+        // }
         
         // await AsyncStorage.setItem('@RNAuth:user', JSON.stringify(response.user));
         // await AsyncStorage.setItem('@RNAuth:token', response.token);
@@ -129,8 +135,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
 export function useAuth() {
     const context = useContext(AuthContext);
+
+    // const [auth, setAuth] = useState(false);
     
-    context.auth = localStorage.getItem("token") ? true : false;
+    context.auth = (localStorage.getItem("token") || testeAuth) ? true : false;
+    // localStorage.getItem("token") ? setAuth(true) : setAuth(false);
+    // context.auth = auth;
+
+
     api.defaults.headers.authorization = context.auth ? `${localStorage.getItem("token")}` : null;
 
     return context;
